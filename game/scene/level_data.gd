@@ -65,9 +65,14 @@ func search_cat(x: int, y: int) -> int: #Global.CELL_PAW
 
 # Вспомогательная функция для поиска в одном направлении
 func search_in_direction(x: int, y: int, dx: int, dy: int, max_steps: int) -> int:
+	if max_steps <= 0:
+		return -1
 	for i in range(1, max_steps + 1):
 		var new_x = x + dx * i
 		var new_y = y + dy * i
+		# Добавляем проверку выхода за границы массива
+		if new_x < 0 || new_x >= wx || new_y < 0 || new_y >= wy:
+			break
 		if cats[new_x][new_y]:
 			return i
 	return -1
