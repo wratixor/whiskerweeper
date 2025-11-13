@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://x3vukvkvnpmg"]
+
+[ext_resource type="Script" uid="uid://d0xaa8cvb624y" path="res://game/test_scene/test_paw_calc.gd" id="1_2t5qm"]
+[ext_resource type="PackedScene" uid="uid://cxgfjnyoxuurx" path="res://game/scene/level_data.tscn" id="2_8tj3o"]
+
+[node name="TestPawCalc" type="Node2D"]
+script = ExtResource("1_2t5qm")
+
+[node name="LevelData" parent="." instance=ExtResource("2_8tj3o")]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
