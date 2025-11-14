@@ -1,8 +1,8 @@
 extends Node
 
 const CELL_SIZE: Vector2 = Vector2(16, 16)
-const WORLD_SIZE_X: int = 20
-const WORLD_SIZE_Y: int = 20
+const WORLD_SIZE_X: int = 15
+const WORLD_SIZE_Y: int = 15
 
 enum CELL_PAW {NA, U, D, L, R, UD, LR, UR, RD, DL, LU, NU, ND, NL, NR, A}
 
