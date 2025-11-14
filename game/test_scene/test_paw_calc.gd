@@ -6,3 +6,4 @@ extends Node2D
 func _on_timer_timeout() -> void:
 	level_data.generate_new()
 	print(level_data.paw)
+	

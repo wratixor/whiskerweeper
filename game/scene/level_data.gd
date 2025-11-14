@@ -12,6 +12,8 @@ var wy: int = Global.WORLD_SIZE_Y
 
 
 func _ready() -> void:
+	SignalBus.l_click.connect(destroy)
+	SignalBus.r_click.connect(mark)
 	seed(floor(Time.get_unix_time_from_system()))
 	for x in wx:
 		cats.append([])
@@ -32,8 +34,8 @@ func generate_new() -> void:
 			flags[x][y] = false
 			paw[x][y] = Global.CELL_PAW.NA
 			grass[x][y] = true
-	self.generate_cats()
-	self.search_paw()
+	generate_cats()
+	search_paw()
 
 
 func generate_cats() -> void:
@@ -52,7 +54,7 @@ func generate_cats() -> void:
 func search_paw() -> void:
 	for x in wx:
 		for y in wy:
-			paw[x][y] = self.search_cat(x, y)
+			paw[x][y] = search_cat(x, y)
 
 func search_cat(x: int, y: int) -> int: #Global.CELL_PAW
 	# Вычисляем расстояния во всех направлениях
@@ -78,15 +80,39 @@ func search_in_direction(x: int, y: int, dx: int, dy: int, max_steps: int) -> in
 	return -1
 
 
-# TODO
-
 func destroy(x: int, y: int) -> void:
-	pass
+	if x < 0 || x >= wx || y < 0 || y >= wy:
+		return
+	if grass[x][y] && !flags[x][y]:
+		grass[x][y] = false
+		SignalBus.redraw_lvl.emit()
+		check_win()
+	if cats[x][y]:
+		SignalBus.lvl_lose.emit()
 
 
 func mark(x: int, y: int) -> void:
-	pass
+	if x < 0 || x >= wx || y < 0 || y >= wy:
+		return
+	if grass[x][y]:
+		flags[x][y] = !flags[x][y]
+		SignalBus.redraw_lvl.emit()
+		check_win()
+	if cats[x][y]:
+		SignalBus.lvl_lose.emit()
 
 
 func check_win() -> void:
-	pass
+	var founds_cats_count: int = 0
+	var flags_count: int = 0
+	var grass_count: int = 0
+	for x in wx:
+		for y in wy:
+			if (cats[x][y] && flags[x][y] && grass[x][y]):
+				founds_cats_count += 1
+			if (flags[x][y]):
+				flags_count += 1
+			if (grass[x][y]):
+				grass_count += 1
+	if (founds_cats_count == flags_count && flags_count == grass_count):
+		SignalBus.lvl_win.emit()

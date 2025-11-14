@@ -24,3 +24,5 @@ tile_set = ExtResource("1_ee863")
 tile_set = ExtResource("1_ee863")
 
 [node name="LevelData" parent="." instance=ExtResource("3_6ovqv")]
+
+[node name="LevelRenderer" type="Node" parent="."]

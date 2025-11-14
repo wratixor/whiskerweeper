@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://game/global/global.gd"
+SignalBus="*res://game/global/signal_bus.gd"
 
 [display]
 

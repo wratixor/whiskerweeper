@@ -7,8 +7,6 @@ const WORLD_SIZE_Y: int = 20
 enum CELL_PAW {NA, U, D, L, R, UD, LR, UR, RD, DL, LU, NU, ND, NL, NR, A}
 
 
-
-	
 func calc_vector(u, d, l, r) -> int:
 	# Создаем массив с направлениями и соответствующими значениями
 	var directions = [
