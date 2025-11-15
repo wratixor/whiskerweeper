@@ -1,8 +1,8 @@
 extends Node
 
 # Определите базовое разрешение
-const BASE_WIDTH = 480
-const BASE_HEIGHT = 480
+const BASE_WIDTH = 360
+const BASE_HEIGHT = 360
 const BASE_SIZE = Vector2i(BASE_WIDTH, BASE_HEIGHT)
 var full: bool = true
 
