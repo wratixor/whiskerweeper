@@ -1,7 +1,7 @@
 extends RichTextLabel
 
-@onready var node_2d: Node2D = $"../../../../Container/Node2D"
-@onready var camera_2d: Camera2D = $"../../../../Camera2D"
+@onready var node_2d: Node2D = %World
+@onready var camera_2d: Camera2D = %SimpleCamera
 
 
 func _process(_delta: float) -> void:

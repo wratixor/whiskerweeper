@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8f0qcsvq3xjf"]
+
+[ext_resource type="Texture2D" uid="uid://dgcn22tlxcxoh" path="res://asset/bg/bgcat.png" id="1_cjmup"]
+
+[node name="CatBG" type="Parallax2D"]
+repeat_size = Vector2(128, 128)
+autoscroll = Vector2(20, 10)
+repeat_times = 31
+limit_begin = Vector2(-100, -100)
+limit_end = Vector2(100, 100)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cjmup")
+centered = false

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjxvpx5w6b7is"]
+
+[ext_resource type="Script" uid="uid://7rtl4jssnsg3" path="res://game/test_scene/camera_2d.gd" id="1_stllx"]
+
+[node name="SimpleCamera" type="Camera2D"]
+limit_enabled = false
+limit_left = -100
+limit_top = -100
+limit_right = 460
+limit_bottom = 460
+position_smoothing_enabled = true
+script = ExtResource("1_stllx")

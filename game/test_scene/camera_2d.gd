@@ -1,5 +1,8 @@
 extends Camera2D
 
+@onready var world: Node2D = %World
+
+
 # Параметры перемещения
 ## Скорость перемещения камеры в пикселях/сек
 @export var speed: float = 300.0
@@ -18,6 +21,11 @@ extends Camera2D
 var target_velocity: Vector2 = Vector2.ZERO
 var current_velocity: Vector2 = Vector2.ZERO
 
+var left: int = 0
+var right: int = 256
+var up: int = 0
+var down: int = 256
+
 ## Обработка ввода (для мгновенных действий, таких как зум)
 func _input(event: InputEvent) -> void:
 	# Проверяем, является ли событие нажатием кнопки мыши
@@ -34,8 +42,31 @@ func _input(event: InputEvent) -> void:
 		# Применяем новое значение и ограничиваем его границами
 		zoom = new_zoom.clamp(min_zoom, max_zoom)
 
+
+func calc_border() -> void:
+	var border: int = 64
+	var screen_field: Vector2i = get_viewport_rect().size
+	var world_field: Vector2i = Global.WORLD_SIZE_PX
+	var center_cam: Vector2i = screen_field / 2
+	left = floor(world.position.x) - border + center_cam.x
+	right = floor(world.position.x) + world_field.x + border - center_cam.x
+	up = floor(world.position.y) - border + center_cam.y
+	down = floor(world.position.y) + world_field.y + border - center_cam.y
+	
+	if (up > down):
+		up = floor(world.position.y + (world_field.y / 2.0))
+		down = up
+		self.position.y = up
+	
+	if (left > right):
+		left = floor(world.position.x + (world_field.x / 2.0))
+		right = left
+		self.position.x = left
+
+
 ## Функция обработки физики (для плавного движения)
 func _physics_process(delta: float):
+	calc_border()
 	# 1. Получение данных ввода для движения
 	var input_dir = Vector2.ZERO
 	input_dir.x = Input.get_axis("ui_left", "ui_right")
@@ -49,15 +80,15 @@ func _physics_process(delta: float):
 	current_velocity = current_velocity.lerp(target_velocity, delta * acceleration)
 	# 5. Применение движения
 	position += current_velocity * delta
-	if position.x < 0:
-		position.x = 0
+	if position.x < left:
+		position.x = left
 		current_velocity = Vector2.ZERO
-	if position.x > get_tree().root.content_scale_size.x:
-		position.x = get_tree().root.content_scale_size.x
+	if position.x > right:
+		position.x = right
 		current_velocity = Vector2.ZERO
-	if position.y < 0:
-		position.y = 0
+	if position.y < up:
+		position.y = up
 		current_velocity = Vector2.ZERO
-	if position.y > get_tree().root.content_scale_size.y:
-		position.y = get_tree().root.content_scale_size.y
+	if position.y > down:
+		position.y = down
 		current_velocity = Vector2.ZERO
