@@ -29,7 +29,7 @@ func redraw_grass() -> void:
 	for x in wx:
 		for y in wy:
 			if (level_data.grass[x][y]):
-				grass.set_cell(Vector2i(x, y), 1, Vector2i.ZERO)
+				grass.set_cell(Vector2i(x, y), 0, Vector2i(0, 2))
 			else:
 				grass.erase_cell(Vector2i(x, y))
 			#cats[x][y] = false
@@ -42,7 +42,7 @@ func redraw_flags() -> void:
 	for x in wx:
 		for y in wy:
 			if (level_data.flags[x][y]):
-				flags.set_cell(Vector2i(x, y), 0, Vector2i(1, 2))
+				flags.set_cell(Vector2i(x, y), 0, Vector2i(0, 5))
 			else:
 				flags.erase_cell(Vector2i(x, y))
 
@@ -57,7 +57,7 @@ func draw_cats() -> void:
 	for x in wx:
 		for y in wy:
 			if (level_data.cats[x][y]):
-				grass.set_cell(Vector2i(x, y), 0, Vector2i(0, 2))
+				grass.set_cell(Vector2i(x, y), 0, Vector2i(0, 4))
 			else:
 				grass.erase_cell(Vector2i(x, y))
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlh550aarufnr"
-path="res://.godot/imported/simple_cat_tileset.png-b6c7bf217752598b2815ec40c68fd0f0.ctex"
+uid="uid://dh2831tslyjr1"
+path="res://.godot/imported/whisker_tileset.png-552278f4c8f9f2f3d9fe69771ef17d09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/tileset/simple_cat_tileset.png"
-dest_files=["res://.godot/imported/simple_cat_tileset.png-b6c7bf217752598b2815ec40c68fd0f0.ctex"]
+source_file="res://asset/tileset/whisker_tileset.png"
+dest_files=["res://.godot/imported/whisker_tileset.png-552278f4c8f9f2f3d9fe69771ef17d09.ctex"]
 
 [params]
 

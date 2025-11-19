@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bjxvpx5w6b7is"]
 
-[ext_resource type="Script" uid="uid://7rtl4jssnsg3" path="res://game/test_scene/camera_2d.gd" id="1_stllx"]
+[ext_resource type="Script" uid="uid://7rtl4jssnsg3" path="res://game/scene/camera_2d.gd" id="1_stllx"]
 
 [node name="SimpleCamera" type="Camera2D"]
 limit_enabled = false

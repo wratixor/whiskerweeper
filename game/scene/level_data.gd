@@ -29,7 +29,6 @@ func _ready() -> void:
 
 
 func generate_new() -> void:
-	print("Clean...")
 	cat_count = Global.get_cat_count()
 	for x in wx:
 		for y in wy:
@@ -37,9 +36,7 @@ func generate_new() -> void:
 			flags[x][y] = false
 			paw[x][y] = CELL_PAW.NA
 			grass[x][y] = true
-	print("Gen cats...")
 	generate_cats()
-	print("Calc paws...")
 	search_paw()
 	SignalBus.redraw_lvl.emit()
 
@@ -60,9 +57,7 @@ func generate_cats() -> void:
 func search_paw() -> void:
 	for x in wx:
 		for y in wy:
-			print(Vector2i(x, y))
 			paw[x][y] = search_cat(x, y)
-	print(paw)
 
 
 func search_cat(x: int, y: int) -> int: #Global.CELL_PAW
@@ -72,15 +67,13 @@ func search_cat(x: int, y: int) -> int: #Global.CELL_PAW
 	var l = search_in_direction(x, y, -1, 0, x)			# Влево
 	var r = search_in_direction(x, y, 1, 0, wx - x - 1)	# Вправо
 	var nu = calc_vector(u, d, l, r)
-	print("udlr: ", u, d, l, r, "v: ", nu)
+	#print("udlr: ", u, d, l, r, "v: ", nu)
 	return nu
 
 # Вспомогательная функция для поиска в одном направлении
 func search_in_direction(x: int, y: int, dx: int, dy: int, max_steps: int) -> int:
 	if max_steps <= 0:
 		return -1
-	print("xy(", x, ",", y, ") dxy(", dx, ",", dy, ")")
-	print(range(0, max_steps + 1))
 	for i in range(0, max_steps + 1):
 		var new_x = x + dx * i
 		var new_y = y + dy * i
@@ -88,7 +81,6 @@ func search_in_direction(x: int, y: int, dx: int, dy: int, max_steps: int) -> in
 		if new_x < 0 || new_x >= wx || new_y < 0 || new_y >= wy:
 			break
 		if cats[new_x][new_y]:
-			print("nxy(", new_x, ",", new_y, ")")
 			return i
 	return -1
 
@@ -101,7 +93,6 @@ func calc_vector(u, d, l, r) -> int:
 		[CELL_PAW.L, l],
 		[CELL_PAW.R, r]
 	]
-	
 	# Фильтруем только положительные значения и находим минимальное
 	var positive_dirs = []
 	var min_val = INF
@@ -112,18 +103,14 @@ func calc_vector(u, d, l, r) -> int:
 			positive_dirs.append(dir_data[0])
 			if value < min_val:
 				min_val = value
-	print("positive_dirs: ", positive_dirs)
 	# Если нет положительных значений
 	if positive_dirs.is_empty():
 		return CELL_PAW.NA
-	
 	# Находим все направления с минимальным значением
 	var min_dirs = []
 	for i in range(4):
 		if directions[i][1] == min_val and directions[i][1] > 0:
 			min_dirs.append(directions[i][0])
-	
-	print("min_dirs: ", min_dirs)
 	# Определяем результат на основе количества минимальных направлений
 	match min_dirs:
 		[CELL_PAW.U]:
@@ -156,7 +143,6 @@ func calc_vector(u, d, l, r) -> int:
 			return CELL_PAW.NR
 		[CELL_PAW.U, CELL_PAW.D, CELL_PAW.L, CELL_PAW.R]:
 			return CELL_PAW.A
-	
 	return CELL_PAW.NA
 
 

@@ -7,7 +7,6 @@ extends Node
 @onready var stats: Label = %Stats
 
 
-
 var pause: bool = false
 
 func _ready() -> void:
@@ -35,17 +34,16 @@ func _process(_delta: float) -> void:
 	if (pause):
 		if Input.is_action_just_pressed("left_click") or Input.is_action_just_pressed("right_click"):
 			pause = false
-			print("Regenerate level")
 			level_data.generate_new()
 	else:
 		var screen_pos: Vector2 = stats.get_global_mouse_position()
 		var cell: Vector2i = convert_mouse_to_cell(screen_pos)
 		if Input.is_action_just_pressed("left_click"):
 			SignalBus.l_click.emit(cell.x, cell.y)
-			print("lc: ", cell, screen_pos)
+			#print("lc: ", cell, screen_pos)
 		if Input.is_action_just_pressed("right_click"):
 			SignalBus.r_click.emit(cell.x, cell.y)
-			print("rc: ", cell, screen_pos)
+			#print("rc: ", cell, screen_pos)
 
 
 func lose() -> void:
