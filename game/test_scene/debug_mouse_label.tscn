@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ee5aipovq7xa"]
+
+[ext_resource type="Script" uid="uid://nj2vaeneu3mw" path="res://game/test_scene/debug_mouse.gd" id="1_e48nw"]
+
+[node name="Label" type="RichTextLabel"]
+script = ExtResource("1_e48nw")

@@ -11,6 +11,7 @@ const INCREMENT_CAT: int = 2
 const MAX_CAT_COUNT: int = int(floor((WORLD_SIZE_X * WORLD_SIZE_Y) * 0.5))
 
 var level: int = 0
+var zoom: int = 2
 
 func get_cat_count() -> int:
 	return min(MAX_CAT_COUNT, (START_CAT_COUNT + (level * INCREMENT_CAT)))

@@ -1,17 +1,18 @@
 extends Node2D
 
 # Определите базовое разрешение
-const BASE_WIDTH = 360
-const BASE_HEIGHT = 360
-const BASE_SIZE = Vector2i(BASE_WIDTH, BASE_HEIGHT)
+const MIN_WIDTH = 360
+const MIN_HEIGHT = 360
+const MIN_SIZE = Vector2i(MIN_WIDTH, MIN_HEIGHT)
 var full: bool = false
 
 func _ready():
 	# Устанавливаем минимальный размер окна
-	DisplayServer.window_set_min_size(BASE_SIZE)
-	get_tree().root.content_scale_size = BASE_SIZE
+	DisplayServer.window_set_min_size(MIN_SIZE)
+	get_tree().root.content_scale_size = MIN_SIZE
 	# Подключаем сигнал изменения размера окна
 	get_tree().root.size_changed.connect(adjust_viewport_to_window)
+	SignalBus.zoom_change.connect(adjust_viewport_to_window)
 	adjust_viewport_to_window()
 
 func _process(_delta: float) -> void:
@@ -34,16 +35,21 @@ func adjust_viewport_to_window():
 	if window_size.x == 0 or window_size.y == 0:
 		return
 	# 1. Рассчитываем потенциальные масштабы по X и Y
-	var scale_x: float = float(window_size.x) / float(BASE_WIDTH)
-	var scale_y: float = float(window_size.y) / float(BASE_HEIGHT)
-	# 2. Находим МИНИМАЛЬНЫЙ из них и округляем ВНИЗ.
-	#    Это и есть наш "честный" целочисленный масштаб (1x, 2x, 3x...)
-	var integer_scale = max(1.0, floor(min(scale_x, scale_y)))
-	# 3. Рассчитываем НОВЫЙ базовый размер (Overscan)
 	var new_base_size = Vector2i(
-		floor(window_size.x / integer_scale),
-		floor(window_size.y / integer_scale)
+		floor(window_size.x / Global.zoom),
+		floor(window_size.y / Global.zoom)
 	)
+	
+	#var scale_x: float = float(window_size.x) / float(MIN_WIDTH)
+	#var scale_y: float = float(window_size.y) / float(MIN_HEIGHT)
+	## 2. Находим МИНИМАЛЬНЫЙ из них и округляем ВНИЗ.
+	##    Это и есть наш "честный" целочисленный масштаб (1x, 2x, 3x...)
+	#var integer_scale = max(1.0, floor(min(scale_x, scale_y)))
+	## 3. Рассчитываем НОВЫЙ базовый размер (Overscan)
+	#var new_base_size = Vector2i(
+		#floor(window_size.x / integer_scale),
+		#floor(window_size.y / integer_scale)
+	#)
 	# 4. Применяем этот новый размер
 	get_tree().root.content_scale_size = new_base_size
 	#print("Window: %s | Scale: %sx | New Base Res: %s" % [window_size, integer_scale, new_base_size])

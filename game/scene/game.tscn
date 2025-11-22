@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://cd8cr4i7ha52r"]
+[gd_scene load_steps=10 format=4 uid="uid://cd8cr4i7ha52r"]
 
 [ext_resource type="Script" uid="uid://bcphbbd36yunm" path="res://game/scene/game.gd" id="1_m8bfc"]
 [ext_resource type="PackedScene" uid="uid://b8f0qcsvq3xjf" path="res://game/scene/cat_bg.tscn" id="2_ecox1"]
@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://b4ohonv2dgnm4" path="res://asset/tileset/whisker_tileset.tres" id="4_cm0t0"]
 [ext_resource type="PackedScene" uid="uid://bjxvpx5w6b7is" path="res://game/scene/simple_camera.tscn" id="4_j4u14"]
 [ext_resource type="TileSet" uid="uid://dygfslaw5fm0o" path="res://asset/tileset/paw_tileset.tres" id="5_cm0t0"]
+[ext_resource type="Script" uid="uid://dpj3t30vtmmpx" path="res://game/scene/cursor.gd" id="6_cm0t0"]
 [ext_resource type="Script" uid="uid://dbyct7w8bkgw0" path="res://game/scene/level_renderer.gd" id="7_n5sek"]
 [ext_resource type="Script" uid="uid://c0ssa1n7s4h87" path="res://game/scene/level_utility.gd" id="8_d1mle"]
 
@@ -44,6 +45,9 @@ tile_set = ExtResource("4_cm0t0")
 unique_name_in_owner = true
 tile_map_data = PackedByteArray("AAABAAEAAAAAAAQAAAACAAIAAAAAAAQAAAADAAEAAAAAAAQAAAADAAMAAAAAAAUAAAAEAAIAAAAAAAUAAAAGAAMAAAAAAAUAAAAHAAYAAAAAAAUAAAA=")
 tile_set = ExtResource("4_cm0t0")
+
+[node name="Cursor" type="Node2D" parent="."]
+script = ExtResource("6_cm0t0")
 
 [node name="LevelData" parent="." instance=ExtResource("3_6ovqv")]
 unique_name_in_owner = true
