@@ -46,29 +46,43 @@ func _process(_delta: float) -> void:
 	else:
 		var screen_pos: Vector2 = stats.get_global_mouse_position()
 		var cell: Vector2i = convert_mouse_to_cell(screen_pos)
-		if cell.x >= 0 && cell.y >= 0 && cell.x < Global.WORLD_SIZE_X && cell.y < Global.WORLD_SIZE_Y:
-			var cwx: float = Global.WORLD_SIZE_X / 2.0
-			var cwy: float = Global.WORLD_SIZE_Y / 2.0
-			var cdfx: float = float(cell.x) + 0.5 - cwx
-			var cdfy: float = float(cell.y) + 0.5 - cwy
-			var cdfxn: float = cdfx / cwx
-			var cdfyn: float = cdfy / cwy
-			var window_size: Vector2 = get_tree().root.content_scale_size
-			#var scr_r: float = min(window_size.x / 2.0, window_size.y / 2.0)
-			var max_dif_scr_x: float = (float((Global.WORLD_SIZE_X + 4) * Global.CELL_SIZE.x) - window_size.x) / 2.0
-			var max_dif_scr_y: float = (float((Global.WORLD_SIZE_Y + 4) * Global.CELL_SIZE.y) - window_size.y) / 2.0
-			var cam_dif_x: float = cdfxn * max_dif_scr_x
-			var cam_dif_y: float = cdfyn * max_dif_scr_y
-			var start_cam_pos_x: float = node_2d.position.x + (float(Global.WORLD_SIZE_X * Global.CELL_SIZE.x) / 2.0)
-			var start_cam_pos_y: float = node_2d.position.y + (float(Global.WORLD_SIZE_Y * Global.CELL_SIZE.y) / 2.0)
-			var new_cam_pos_x: float = start_cam_pos_x + cam_dif_x
-			var new_cam_pos_y: float = start_cam_pos_y + cam_dif_y
-			if max_dif_scr_x < 0:
-				new_cam_pos_x = start_cam_pos_x
-			if max_dif_scr_y < 0:
-				new_cam_pos_y = start_cam_pos_y
-			camera_2d.position = Vector2(new_cam_pos_x, new_cam_pos_y)
+		#if cell.x >= 0 && cell.y >= 0 && cell.x < Global.WORLD_SIZE_X && cell.y < Global.WORLD_SIZE_Y:
+			#var cwx: float = Global.WORLD_SIZE_X / 2.0
+			#var cwy: float = Global.WORLD_SIZE_Y / 2.0
+			#var cdfx: float = float(cell.x) + 0.5 - cwx
+			#var cdfy: float = float(cell.y) + 0.5 - cwy
+			#var cdfxn: float = cdfx / cwx
+			#var cdfyn: float = cdfy / cwy
+			#var window_size: Vector2 = get_tree().root.content_scale_size
+			##var scr_r: float = min(window_size.x / 2.0, window_size.y / 2.0)
+			#var max_dif_scr_x: float = (float((Global.WORLD_SIZE_X + 4) * Global.CELL_SIZE.x) - window_size.x) / 2.0
+			#var max_dif_scr_y: float = (float((Global.WORLD_SIZE_Y + 4) * Global.CELL_SIZE.y) - window_size.y) / 2.0
+			#var cam_dif_x: float = cdfxn * max_dif_scr_x
+			#var cam_dif_y: float = cdfyn * max_dif_scr_y
+			#var start_cam_pos_x: float = node_2d.position.x + (float(Global.WORLD_SIZE_X * Global.CELL_SIZE.x) / 2.0)
+			#var start_cam_pos_y: float = node_2d.position.y + (float(Global.WORLD_SIZE_Y * Global.CELL_SIZE.y) / 2.0)
+			#var new_cam_pos_x: float = start_cam_pos_x + cam_dif_x
+			#var new_cam_pos_y: float = start_cam_pos_y + cam_dif_y
+			#if max_dif_scr_x < 0:
+				#new_cam_pos_x = start_cam_pos_x
+			#if max_dif_scr_y < 0:
+				#new_cam_pos_y = start_cam_pos_y
+			#camera_2d.position = Vector2(new_cam_pos_x, new_cam_pos_y)
+		if Rect2(0, 0, Global.WORLD_SIZE_X, Global.WORLD_SIZE_Y).has_point(cell):
+			var world_center = Vector2(Global.WORLD_SIZE_X, Global.WORLD_SIZE_Y) / 2.0
+			var cell_center = Vector2(cell) + Vector2((Global.WORLD_SIZE_X / 2.0) - int(Global.WORLD_SIZE_X / 2.0), (Global.WORLD_SIZE_Y / 2.0) - int(Global.WORLD_SIZE_Y / 2.0))
+			var normalized_offset = (cell_center - world_center) / world_center
 			
+			var world_pixels = Vector2(Global.WORLD_SIZE_X + 4, Global.WORLD_SIZE_Y + 4) * Vector2(Global.CELL_SIZE)
+			var max_screen_offset = (world_pixels - Vector2(get_tree().root.content_scale_size)) / 2.0
+			
+			var camera_offset = normalized_offset * max_screen_offset
+			var base_camera_pos = node_2d.position + Vector2(Global.WORLD_SIZE_X, Global.WORLD_SIZE_Y) * Vector2(Global.CELL_SIZE) / 2.0
+			
+			camera_2d.position = base_camera_pos + Vector2(
+				max_screen_offset.x if max_screen_offset.x > 0 else 0,
+				max_screen_offset.y if max_screen_offset.y > 0 else 0
+			) * normalized_offset
 			
 			
 			if Input.is_action_just_pressed("left_click"):
