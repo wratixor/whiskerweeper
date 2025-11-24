@@ -76,7 +76,7 @@ func _process(_delta: float) -> void:
 			var world_pixels = Vector2(Global.WORLD_SIZE_X + 4, Global.WORLD_SIZE_Y + 4) * Vector2(Global.CELL_SIZE)
 			var max_screen_offset = (world_pixels - Vector2(get_tree().root.content_scale_size)) / 2.0
 			
-			var camera_offset = normalized_offset * max_screen_offset
+			#var camera_offset = normalized_offset * max_screen_offset
 			var base_camera_pos = node_2d.position + Vector2(Global.WORLD_SIZE_X, Global.WORLD_SIZE_Y) * Vector2(Global.CELL_SIZE) / 2.0
 			
 			camera_2d.position = base_camera_pos + Vector2(

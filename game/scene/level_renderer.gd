@@ -29,7 +29,7 @@ func redraw_grass() -> void:
 	for x in wx:
 		for y in wy:
 			if (level_data.grass[x][y]):
-				grass.set_cell(Vector2i(x, y), 0, Vector2i(0, 2))
+				grass.set_cell(Vector2i(x, y), 0, Vector2i(0, 3))
 			else:
 				grass.erase_cell(Vector2i(x, y))
 			#cats[x][y] = false
