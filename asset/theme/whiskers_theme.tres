@@ -1,0 +1,23 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dsmkyvcw50vfg"]
+
+[ext_resource type="FontFile" uid="uid://d01i6pdsq64rl" path="res://asset/theme/PixeloidSans.ttf" id="1_v8b5g"]
+
+[resource]
+default_font = ExtResource("1_v8b5g")
+Button/font_sizes/font_size = 22
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0.28, 0.28, 0.28, 1)
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 0
+Label/font_sizes/font_size = 22
+LineEdit/font_sizes/font_size = 22
+MarginContainer/constants/margin_bottom = 3
+MarginContainer/constants/margin_left = 3
+MarginContainer/constants/margin_right = 3
+MarginContainer/constants/margin_top = 3
+ProgressBar/font_sizes/font_size = 22
+TabBar/font_sizes/font_size = 22
+TabContainer/font_sizes/font_size = 22
+Tree/font_sizes/font_size = 22
+Tree/font_sizes/title_button_font_size = 22

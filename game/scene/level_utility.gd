@@ -5,10 +5,11 @@ extends Node
 @onready var level_data: LevelData = %LevelData
 @onready var ui: CanvasLayer = %UI
 @onready var stats: Label = %Stats
+#@onready var mode: Button = %Mode
 
 
 var pause: bool = false
-var invert: bool = false
+#var invert: bool = false
 
 func _ready() -> void:
 	level_data.generate_new()
@@ -33,10 +34,10 @@ func convert_mouse_to_cell(mouse_pos: Vector2) -> Vector2i:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("zoom_in"):
-		Global.zoom = min(4, Global.zoom + 1)
+		Global.zoom = min(Global.max_zoom, Global.zoom + 1)
 		SignalBus.zoom_change.emit()
 	if Input.is_action_just_pressed("zoom_out"):
-		Global.zoom = max(1, Global.zoom - 1)
+		Global.zoom = max(Global.min_zoom, Global.zoom - 1)
 		SignalBus.zoom_change.emit()
 
 	if (pause):
@@ -86,19 +87,19 @@ func _process(_delta: float) -> void:
 			
 			
 			if Input.is_action_just_pressed("left_click"):
-				if !invert:
+				if !Global.invert:
 					SignalBus.l_click.emit(cell.x, cell.y)
 				else:
 					SignalBus.r_click.emit(cell.x, cell.y)
 			if Input.is_action_just_pressed("right_click"):
-				if !invert:
+				if !Global.invert:
 					SignalBus.r_click.emit(cell.x, cell.y)
 				else:
 					SignalBus.l_click.emit(cell.x, cell.y)
-		else:
-			if Input.is_action_just_pressed("left_click") or Input.is_action_just_pressed("right_click"):
-				#print("i: ", cell, screen_pos)
-				invert = !invert
+		#else:
+			#if Input.is_action_just_pressed("left_click") or Input.is_action_just_pressed("right_click"):
+				##print("i: ", cell, screen_pos)
+				#invert = !invert
 
 
 func lose() -> void:
@@ -109,3 +110,11 @@ func win() -> void:
 	pause = true
 	Global.level += 1
 	
+
+
+func _on_return_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://game/scene/Main.tscn")
+
+func _on_setting_button_pressed() -> void:
+	Global.invert = !Global.invert
+	SignalBus.redraw_lvl.emit()

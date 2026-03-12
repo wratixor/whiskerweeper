@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://e7hn6js6ec83"]
+
+[ext_resource type="Script" uid="uid://bcphbbd36yunm" path="res://game/scene/resizeble_screen.gd" id="1_6y43a"]
+[ext_resource type="PackedScene" uid="uid://b8f0qcsvq3xjf" path="res://game/scene/cat_bg.tscn" id="1_37pkq"]
+[ext_resource type="Script" uid="uid://cathgcf2xkvty" path="res://game/scene/button_manager.gd" id="3_x33vy"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_6y43a")
+
+[node name="CatBG" parent="." instance=ExtResource("1_37pkq")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -96.0
+offset_right = 136.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="CatsButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Cat collection"
+
+[node name="MetaButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Shop"
+
+[node name="SettingButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="ButtonManager" type="Node" parent="."]
+script = ExtResource("3_x33vy")
+
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/PlayButton" to="ButtonManager" method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/CatsButton" to="ButtonManager" method="_on_cats_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/MetaButton" to="ButtonManager" method="_on_meta_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/SettingButton" to="ButtonManager" method="_on_setting_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/ExitButton" to="ButtonManager" method="_on_exit_button_pressed"]

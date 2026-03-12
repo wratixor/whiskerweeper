@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="whiskerweeper"
-run/main_scene="uid://cd8cr4i7ha52r"
+run/main_scene="uid://e7hn6js6ec83"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="uid://dm8ry6jiqg7ge"
 
@@ -30,6 +30,11 @@ window/stretch/scale_mode="integer"
 window/handheld/orientation=6
 window/ios/hide_home_indicator=false
 window/ios/hide_status_bar=false
+
+[gui]
+
+theme/custom="uid://dsmkyvcw50vfg"
+theme/custom_font="uid://d01i6pdsq64rl"
 
 [input]
 

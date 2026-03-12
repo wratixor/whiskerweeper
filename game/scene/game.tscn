@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=4 uid="uid://cd8cr4i7ha52r"]
 
-[ext_resource type="Script" uid="uid://bcphbbd36yunm" path="res://game/scene/game.gd" id="1_m8bfc"]
+[ext_resource type="Script" uid="uid://bcphbbd36yunm" path="res://game/scene/resizeble_screen.gd" id="1_m8bfc"]
 [ext_resource type="PackedScene" uid="uid://b8f0qcsvq3xjf" path="res://game/scene/cat_bg.tscn" id="2_ecox1"]
 [ext_resource type="PackedScene" uid="uid://cxgfjnyoxuurx" path="res://game/scene/level_data.tscn" id="3_6ovqv"]
 [ext_resource type="TileSet" uid="uid://b4ohonv2dgnm4" path="res://asset/tileset/whisker_tileset.tres" id="4_cm0t0"]
@@ -75,8 +75,28 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_colors/font_shadow_color = Color(0.32, 0.32, 0.32, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 2
-theme_override_constants/shadow_outline_size = 2
 text = "Lvl: 0 Cats: 20 Flags: 10"
+
+[node name="Mode" type="Button" parent="UI/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+disabled = true
+text = "CUT"
+
+[node name="ReturnButton" type="Button" parent="UI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Return"
+
+[node name="SettingButton" type="Button" parent="UI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Swap"
+
+[connection signal="pressed" from="UI/MarginContainer/ReturnButton" to="LevelUtility" method="_on_return_button_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/SettingButton" to="LevelUtility" method="_on_setting_button_pressed"]

@@ -6,7 +6,7 @@ extends Node
 @onready var flags: TileMapLayer = %Flags
 @onready var level_data: LevelData = %LevelData
 @onready var stats: Label = %Stats
-
+@onready var mode: Button = %Mode
 
 var wx: int = Global.WORLD_SIZE_X
 var wy: int = Global.WORLD_SIZE_Y
@@ -23,6 +23,7 @@ func redraw_all() -> void:
 	redraw_flags()
 	redraw_paws()
 	redraw_stat()
+	redraw_mode()
 
 
 func redraw_grass() -> void:
@@ -66,3 +67,9 @@ func redraw_stat() -> void:
 	stats.text = "Level: " + str(Global.level) + " "
 	stats.text += " Cats: " + str(level_data.cat_count) + " "
 	stats.text += " Flags: " + str(level_data.get_flags_count()) + " "
+
+func redraw_mode() -> void:
+	if Global.invert:
+		mode.text = "FLAG"
+	else:
+		mode.text = "CUT"
