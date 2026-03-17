@@ -2,6 +2,7 @@ extends Node
 
 @onready var world: Node2D = %World
 @onready var cat_paw: TileMapLayer = %CatPaw
+@onready var back: TileMapLayer = %Back
 @onready var grass: TileMapLayer = %Grass
 @onready var flags: TileMapLayer = %Flags
 @onready var level_data: LevelData = %LevelData
@@ -20,12 +21,17 @@ func _ready() -> void:
 
 
 func redraw_all() -> void:
+	redraw_back()
 	redraw_grass()
 	redraw_flags()
 	redraw_paws()
 	redraw_stat()
 	redraw_mode()
 
+func redraw_back() -> void:
+	for x in wx:
+		for y in wy:
+			back.set_cell(Vector2i(x, y), 0, Vector2i(0, 0))
 
 func redraw_grass() -> void:
 	for x in wx:

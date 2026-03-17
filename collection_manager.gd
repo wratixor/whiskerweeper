@@ -3,9 +3,11 @@ extends Node
 var cat_card_scene: PackedScene = preload("res://game/ext/cat_card.tscn")
 
 @onready var grid_collection: FlowContainer = %GridCollection
+@onready var meta: Label = %Meta
 
 
 func _ready() -> void:
+	meta.text = str(Global.meta)
 	load_collections()
 	
 

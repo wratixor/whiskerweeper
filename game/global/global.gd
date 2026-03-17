@@ -20,6 +20,8 @@ var sfx_sound: float = 0.5
 var zoom: int = 1
 var fullscreen: bool = false
 
+var meta: int = 0
+
 
 func get_cat_count() -> int:
 	return min(MAX_CAT_COUNT, (START_CAT_COUNT + (level * INCREMENT_CAT)))

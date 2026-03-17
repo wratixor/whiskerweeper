@@ -5,16 +5,24 @@ extends Node
 @onready var level_data: LevelData = %LevelData
 @onready var ui: CanvasLayer = %UI
 @onready var stats: Label = %Stats
-#@onready var mode: Button = %Mode
+@onready var win_panel: PanelContainer = %WinPanel
+@onready var card_manager: Node = %CardManager
 
 
 var pause: bool = false
-#var invert: bool = false
+var need_regenerate: bool = false
 
 func _ready() -> void:
+	win_panel.visible = false
 	level_data.generate_new()
 	SignalBus.lvl_lose.connect(lose)
 	SignalBus.lvl_win.connect(win)
+	SignalBus.regenerate_lvl.connect(regenerate_please)
+
+func regenerate_please() -> void:
+	win_panel.visible = false
+	need_regenerate = true
+	
 
 func convert_mouse_to_cell(mouse_pos: Vector2) -> Vector2i:
 	if camera_2d == null || node_2d == null:
@@ -40,9 +48,10 @@ func _process(_delta: float) -> void:
 		Global.zoom = max(Global.min_zoom, Global.zoom - 1)
 		SignalBus.zoom_change.emit()
 
-	if (pause):
+	if pause or need_regenerate:
 		if Input.is_action_just_pressed("left_click") or Input.is_action_just_pressed("right_click"):
 			pause = false
+			need_regenerate = false
 			level_data.generate_new()
 	else:
 		var screen_pos: Vector2 = stats.get_global_mouse_position()
@@ -85,6 +94,8 @@ func lose() -> void:
 
 func win() -> void:
 	pause = true
+	win_panel.visible = true
+	SignalBus.generate_win_loot.emit(Global.get_cat_count())
 	Global.level += 1
 	SoundBus.play_action_sfx.emit("clap", 0.2)
 	

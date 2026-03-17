@@ -2,6 +2,9 @@
 
 [ext_resource type="FontFile" uid="uid://d01i6pdsq64rl" path="res://asset/theme/PixeloidSans.ttf" id="1_v8b5g"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8b5g"]
+bg_color = Color(0, 0.43529412, 0, 1)
+
 [resource]
 default_font = ExtResource("1_v8b5g")
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
@@ -19,6 +22,7 @@ MarginContainer/constants/margin_bottom = 3
 MarginContainer/constants/margin_left = 3
 MarginContainer/constants/margin_right = 3
 MarginContainer/constants/margin_top = 3
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_v8b5g")
 ProgressBar/font_sizes/font_size = 22
 TabBar/font_sizes/font_size = 22
 TabContainer/font_sizes/font_size = 22

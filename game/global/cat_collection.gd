@@ -2,6 +2,7 @@ extends Node
 
 var SAVE_PATH: String = "user://collection.save"
 var UPGRADE_MUL: int = 10
+var META_DIVIDEND: int = 1024
 
 var _cat_static_pool: Dictionary = {
 	"Cat1024": {"name": "Trash Cat",
@@ -55,6 +56,7 @@ var _cat_empty_pool: Dictionary = {
 
 var collected_cat: Dictionary = {}
 var sorted_cats: Array = []
+var sum_weight: int = 0
 
 func _ready() -> void:
 	SignalBus.collection_change.connect(save_collection)
@@ -63,7 +65,12 @@ func _ready() -> void:
 		func(a, b): return _cat_static_pool[a].weight > _cat_static_pool[b].weight
 		)
 	collected_cat = _cat_empty_pool.duplicate(true)
+	calc_weight()
 	load_collection()
+
+func calc_weight() -> void:
+	for key in sorted_cats:
+		sum_weight += _cat_static_pool[key]["weight"]
 
 func get_cat_info(cat_id: String) -> Dictionary:
 	var cat_dict = {
@@ -72,7 +79,8 @@ func get_cat_info(cat_id: String) -> Dictionary:
 		"sprite": preload("res://asset/cat_card/cat1024.png"),
 		"lvl": 0,
 		"count": 0,
-		"need_to_upgrade": UPGRADE_MUL
+		"need_to_upgrade": UPGRADE_MUL,
+		"meta_collected": 1,
 	}
 	if collected_cat.has(cat_id) and _cat_static_pool.has(cat_id):
 		cat_dict["name"] = _cat_static_pool[cat_id]["name"]
@@ -81,12 +89,19 @@ func get_cat_info(cat_id: String) -> Dictionary:
 		cat_dict["lvl"] = collected_cat[cat_id]["lvl"]
 		cat_dict["count"] = collected_cat[cat_id]["count"]
 		cat_dict["need_to_upgrade"] = (collected_cat[cat_id]["lvl"] + 1) * UPGRADE_MUL
+		cat_dict["meta_collected"] = META_DIVIDEND /\
+			(_cat_static_pool[cat_id]["weight"] * (collected_cat[cat_id]["lvl"]+ 1))
 	return cat_dict
 
 
 
 func get_random_cat_key() -> String:
-	return "cat1024"
+	var rnd_weight = randi_range(1, sum_weight)
+	for key in sorted_cats:
+		rnd_weight -= _cat_static_pool[key]["weight"]
+		if rnd_weight <= 0:
+			return key
+	return sorted_cats[0]
 
 func get_random_cats(count: int) -> Dictionary:
 	var new_cat: Dictionary = {}
@@ -100,17 +115,11 @@ func get_random_cats(count: int) -> Dictionary:
 
 
 func add_cat_to_collection(new_cat: Dictionary) -> void:
-	collected_cat["cat1024"]["count"] += new_cat.get("cat1024", 0)
-	collected_cat["cat512"]["count"] += new_cat.get("cat512", 0)
-	collected_cat["cat256"]["count"] += new_cat.get("cat256", 0)
-	collected_cat["cat128"]["count"] += new_cat.get("cat128", 0)
-	collected_cat["cat64"]["count"] += new_cat.get("cat64", 0)
-	collected_cat["cat32"]["count"] += new_cat.get("cat32", 0)
-	collected_cat["cat16"]["count"] += new_cat.get("cat16", 0)
-	collected_cat["cat8"]["count"] += new_cat.get("cat8", 0)
-	collected_cat["cat4"]["count"] += new_cat.get("cat4", 0)
-	collected_cat["cat2"]["count"] += new_cat.get("cat2", 0)
-	collected_cat["cat1"]["count"] += new_cat.get("cat1", 0)
+	for key in sorted_cats:
+		var old_count: int = collected_cat[key]["count"]
+		var find_count: int = new_cat.get(key, 0)
+		var new_count: int = old_count + find_count
+		collected_cat[key]["count"] = new_count
 	save_collection()
 
 

@@ -28,7 +28,7 @@ func setup(cat_id: String, count: int, visible_upgrade: bool) -> void:
 	texture_rect.texture = cat_info["sprite"]
 	if visible_upgrade:
 		if cat_info["count"] < 1 and cat_info["lvl"] < 1:
-			image_container.modulate = Color(0.1, 0.1, 0.1, 0.1)
+			image_container.modulate = Color(0.2, 0.2, 0.2, 1)
 		cat_count.text = str(cat_info["lvl"])
 		
 		if cat_info["count"] >= cat_info["need_to_upgrade"]:
@@ -37,7 +37,8 @@ func setup(cat_id: String, count: int, visible_upgrade: bool) -> void:
 			upgrade_sfx_button.disabled = true
 		
 		if cat_info["count"] > 0:
-			upgrade_sfx_button.text = "%d%%%" % (cat_info["need_to_upgrade"]/cat_info["count"])
+			upgrade_sfx_button.text = str(cat_info["count"] * 100
+									 / cat_info["need_to_upgrade"]) + "%"
 		else:
 			upgrade_sfx_button.text = "0%"
 		
