@@ -1,17 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://e7hn6js6ec83"]
+[gd_scene format=3 uid="uid://e7hn6js6ec83"]
 
 [ext_resource type="Script" uid="uid://bcphbbd36yunm" path="res://game/scene/resizeble_screen.gd" id="1_6y43a"]
 [ext_resource type="PackedScene" uid="uid://b8f0qcsvq3xjf" path="res://game/scene/cat_bg.tscn" id="1_37pkq"]
+[ext_resource type="PackedScene" uid="uid://bmthl2idxege8" path="res://game/ext/SFXButton.tscn" id="3_0044d"]
 [ext_resource type="Script" uid="uid://cathgcf2xkvty" path="res://game/scene/button_manager.gd" id="3_x33vy"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1867764674]
 script = ExtResource("1_6y43a")
 
-[node name="CatBG" parent="." instance=ExtResource("1_37pkq")]
+[node name="CatBG" parent="." unique_id=902608212 instance=ExtResource("1_37pkq")]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1718074770]
 
-[node name="Panel" type="PanelContainer" parent="CanvasLayer"]
+[node name="Panel" type="PanelContainer" parent="CanvasLayer" unique_id=1519235586]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -24,53 +25,65 @@ offset_bottom = 157.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=1121554800]
 layout_mode = 2
 
-[node name="HSeparatorTOP" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="HSeparatorTOP" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer" unique_id=755494833]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 
-[node name="whiskerweeper" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="whiskerweeper" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=2076821963]
 layout_mode = 2
 theme_override_font_sizes/font_size = 33
 text = "Whiskerweeper"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparatorCEN" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="HSeparatorCEN" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer" unique_id=2111842971]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="PlaySFXButton" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1025781744 instance=ExtResource("3_0044d")]
 layout_mode = 2
 text = "Play"
 
-[node name="CatsButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="CollectionSFXButton2" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1416014715 instance=ExtResource("3_0044d")]
 layout_mode = 2
 text = "Cat collection"
 
-[node name="MetaButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="MetaSFXButton3" parent="CanvasLayer/Panel/VBoxContainer" unique_id=69483786 instance=ExtResource("3_0044d")]
 layout_mode = 2
+disabled = true
 text = "Shop"
 
-[node name="SettingButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="SettingSFXButton4" parent="CanvasLayer/Panel/VBoxContainer" unique_id=320869057 instance=ExtResource("3_0044d")]
 layout_mode = 2
 text = "Settings"
 
-[node name="ExitButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="ExitSFXButton5" parent="CanvasLayer/Panel/VBoxContainer" unique_id=970853740 instance=ExtResource("3_0044d")]
 layout_mode = 2
 text = "Exit"
 
-[node name="HSeparatorBot" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="HSeparatorBot" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer" unique_id=427708406]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 
-[node name="ButtonManager" type="Node" parent="."]
+[node name="LinkButton" type="LinkButton" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1388069692]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "About (i)"
+uri = "https://wratixor.ru/projects/whiskerweeper"
+
+[node name="HSeparatorBot2" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1794474888]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+
+[node name="ButtonManager" type="Node" parent="." unique_id=1067577095]
 script = ExtResource("3_x33vy")
 
-[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/PlayButton" to="ButtonManager" method="_on_play_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/CatsButton" to="ButtonManager" method="_on_cats_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/MetaButton" to="ButtonManager" method="_on_meta_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/SettingButton" to="ButtonManager" method="_on_setting_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/ExitButton" to="ButtonManager" method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/PlaySFXButton" to="ButtonManager" method="_on_play_sfx_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/CollectionSFXButton2" to="ButtonManager" method="_on_collection_sfx_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/MetaSFXButton3" to="ButtonManager" method="_on_meta_sfx_button_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/SettingSFXButton4" to="ButtonManager" method="_on_setting_sfx_button_4_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/ExitSFXButton5" to="ButtonManager" method="_on_exit_sfx_button_5_pressed"]

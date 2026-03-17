@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://3fesn07dcyof"]
+
+[ext_resource type="Script" uid="uid://jia1oeuyjjk" path="res://game/ext/cat_card.gd" id="1_lu116"]
+[ext_resource type="PackedScene" uid="uid://bmthl2idxege8" path="res://game/ext/SFXButton.tscn" id="2_lu116"]
+
+[node name="CatCard" type="MarginContainer" unique_id=344470362]
+offset_right = 6.0
+offset_bottom = 6.0
+script = ExtResource("1_lu116")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1453472570]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1281178001]
+layout_mode = 2
+
+[node name="NameCat" type="Label" parent="PanelContainer/VBoxContainer" unique_id=999638792]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 11
+text = "VeryLongNameCat4"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ImageContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer" unique_id=621925997]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/ImageContainer" unique_id=1022580614]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="CatCount" type="Label" parent="PanelContainer/VBoxContainer" unique_id=2044560973]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="UpgradeSFXButton" parent="PanelContainer/VBoxContainer" unique_id=1025781744 instance=ExtResource("2_lu116")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "100%"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/UpgradeSFXButton" to="." method="_on_upgrade_sfx_button_pressed"]

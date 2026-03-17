@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://dhph5174crnn4"]
+
+[ext_resource type="Script" uid="uid://bcphbbd36yunm" path="res://game/scene/resizeble_screen.gd" id="1_byxen"]
+[ext_resource type="Script" uid="uid://ff8eq55de5fd" path="res://game/scene/setting_manager.gd" id="1_xg1r5"]
+[ext_resource type="PackedScene" uid="uid://b8f0qcsvq3xjf" path="res://game/scene/cat_bg.tscn" id="2_u18kf"]
+[ext_resource type="PackedScene" uid="uid://bmthl2idxege8" path="res://game/ext/SFXButton.tscn" id="3_c2unv"]
+
+[node name="Settings" type="Node2D" unique_id=1879884891]
+script = ExtResource("1_byxen")
+
+[node name="CatBG" parent="." unique_id=1476515815 instance=ExtResource("2_u18kf")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1100072752]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1678421925]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -126.0
+offset_right = 192.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer" unique_id=1141390195]
+layout_mode = 2
+
+[node name="HSeparatorTOP" type="HSeparator" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=546043469]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+
+[node name="whiskerweeper" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=1367334972]
+layout_mode = 2
+theme_override_font_sizes/font_size = 33
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparatorMID" type="HSeparator" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=1688598845]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+
+[node name="HBoxContainerBG" type="HBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=389534035]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer/HBoxContainerBG" unique_id=649342104]
+layout_mode = 2
+text = "  BG ♪:"
+
+[node name="HSliderBG" type="HSlider" parent="CanvasLayer/PanelContainer/VBoxContainer/HBoxContainerBG" unique_id=151597693]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=1718666506]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=12919107]
+layout_mode = 2
+text = "SFX ♪:"
+
+[node name="HSliderSFX" type="HSlider" parent="CanvasLayer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1033850539]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="HSeparatorBOT" type="HSeparator" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=1771579229]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=1471388619]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer/HBoxContainer3" unique_id=136390750]
+layout_mode = 2
+text = "Zoom:"
+
+[node name="HSliderZoom" type="HSlider" parent="CanvasLayer/PanelContainer/VBoxContainer/HBoxContainer3" unique_id=1803247451]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 2.0
+value = 1.0
+tick_count = 2
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="FSSFXButton" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=1025781744 instance=ExtResource("3_c2unv")]
+layout_mode = 2
+text = "Toggle FullScreen"
+
+[node name="HSeparatorBOT2" type="HSeparator" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=284937893]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+
+[node name="ExitSFXButton" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=766338773 instance=ExtResource("3_c2unv")]
+layout_mode = 2
+text = "Return"
+
+[node name="HSeparatorBOT3" type="HSeparator" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=2050419205]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+
+[node name="SettingManager" type="Node" parent="." unique_id=1524430911]
+script = ExtResource("1_xg1r5")
+
+[connection signal="value_changed" from="CanvasLayer/PanelContainer/VBoxContainer/HBoxContainerBG/HSliderBG" to="SettingManager" method="_on_h_slider_bg_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/PanelContainer/VBoxContainer/HBoxContainer2/HSliderSFX" to="SettingManager" method="_on_h_slider_sfx_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/PanelContainer/VBoxContainer/HBoxContainer3/HSliderZoom" to="SettingManager" method="_on_h_slider_zoom_value_changed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/FSSFXButton" to="SettingManager" method="_on_fssfx_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/ExitSFXButton" to="SettingManager" method="_on_exit_sfx_button_pressed"]

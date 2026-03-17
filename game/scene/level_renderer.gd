@@ -6,7 +6,8 @@ extends Node
 @onready var flags: TileMapLayer = %Flags
 @onready var level_data: LevelData = %LevelData
 @onready var stats: Label = %Stats
-@onready var mode: Button = %Mode
+@onready var mode: Button = %ModeSFXButton
+
 
 var wx: int = Global.WORLD_SIZE_X
 var wy: int = Global.WORLD_SIZE_Y

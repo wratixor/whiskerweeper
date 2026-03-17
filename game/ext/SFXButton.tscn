@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bmthl2idxege8"]
+
+[ext_resource type="Script" uid="uid://gaoalnff0ihr" path="res://game/ext/sfx_button.gd" id="1_1kqgi"]
+
+[node name="SFXButton" type="Button" unique_id=1025781744]
+text = "SFXButton"
+script = ExtResource("1_1kqgi")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
