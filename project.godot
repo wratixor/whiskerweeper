@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="whiskerweeper"
 run/main_scene="uid://e7hn6js6ec83"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="uid://dm8ry6jiqg7ge"
+config/icon="uid://dcxvp5xtxvc80"
 
 [audio]
 

@@ -13,6 +13,7 @@ func save_settings() -> void:
 		"zoom": Global.zoom,
 		"fullscreen": Global.fullscreen,
 		"meta": Global.meta,
+		"level": Global.level,
 	}
 	
 	var file = FileAccess.open(SETTING_PATH, FileAccess.WRITE)
@@ -41,12 +42,14 @@ func apply_settings(settings: Dictionary) -> void:
 	var default_zoom = 1.0
 	var default_fullscreen = false
 	var default_meta = 0
+	var default_level = 0
 	
 	Global.bg_sound = settings.get("bg_sound", default_bg)
 	Global.sfx_sound = settings.get("sfx_sound", default_sfx)
 	Global.zoom = settings.get("zoom", default_zoom)
 	Global.fullscreen = settings.get("fullscreen", default_fullscreen)
 	Global.meta = settings.get("meta", default_meta)
+	Global.level = settings.get("level", default_level)
 	
 	set_bus_volume("BG", Global.bg_sound)
 	set_bus_volume("SFX", Global.sfx_sound)

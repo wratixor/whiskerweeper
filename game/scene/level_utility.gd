@@ -91,6 +91,8 @@ func lose() -> void:
 	pause = true
 	Global.level = 0
 	SoundBus.play_action_sfx.emit("meow", 0.2)
+	SignalBus.settings_change.emit()
+
 
 func win() -> void:
 	pause = true
@@ -98,7 +100,7 @@ func win() -> void:
 	SignalBus.generate_win_loot.emit(Global.get_cat_count())
 	Global.level += 1
 	SoundBus.play_action_sfx.emit("clap", 0.2)
-	
+	SignalBus.settings_change.emit()
 
 
 func _on_return_sfx_button_pressed() -> void:
