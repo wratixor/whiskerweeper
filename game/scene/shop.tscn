@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://852ujhkqdwou"]
+
+[ext_resource type="PackedScene" uid="uid://b8f0qcsvq3xjf" path="res://game/scene/cat_bg.tscn" id="1_ihffc"]
+[ext_resource type="PackedScene" uid="uid://bmthl2idxege8" path="res://game/ext/SFXButton.tscn" id="2_bvgt6"]
+[ext_resource type="Texture2D" uid="uid://dcxvp5xtxvc80" path="res://asset/tileset/icon.png" id="3_idtf0"]
+[ext_resource type="Script" uid="uid://ckcj0mj6viqwr" path="res://shop_manager.gd" id="4_wk3m5"]
+
+[node name="Shop" type="Node2D" unique_id=756336026]
+
+[node name="CatBG" parent="." unique_id=49771996 instance=ExtResource("1_ihffc")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=922506697]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1196470280]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PanelContainer" unique_id=17953105]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 2
+
+[node name="GridCollection" type="FlowContainer" parent="CanvasLayer/PanelContainer/ScrollContainer" unique_id=819025449]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 2
+alignment = 1
+last_wrap_alignment = 2
+
+[node name="SFXButton" parent="CanvasLayer" unique_id=1025781744 instance=ExtResource("2_bvgt6")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -35.0
+offset_right = 130.0
+grow_vertical = 0
+text = "Return"
+
+[node name="SwapSFXButton" parent="CanvasLayer" unique_id=1451669525 instance=ExtResource("2_bvgt6")]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Available"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=82991670]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer" unique_id=1938703590]
+layout_mode = 2
+texture = ExtResource("3_idtf0")
+stretch_mode = 4
+
+[node name="Meta" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1569171103]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShopManager" type="Node" parent="." unique_id=302042893]
+script = ExtResource("4_wk3m5")
+
+[connection signal="pressed" from="CanvasLayer/SFXButton" to="ShopManager" method="_on_sfx_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SwapSFXButton" to="ShopManager" method="_on_swap_sfx_button_pressed"]

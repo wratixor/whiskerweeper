@@ -10,7 +10,7 @@ func _on_collection_sfx_button_2_pressed() -> void:
 
 
 func _on_meta_sfx_button_3_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://game/scene/shop.tscn")
 
 
 func _on_setting_sfx_button_4_pressed() -> void:

@@ -7,14 +7,18 @@ var flags: Array = []
 var paw: Array = []
 var grass: Array = []
 
-var wx: int = Global.WORLD_SIZE_X
-var wy: int = Global.WORLD_SIZE_Y
+var wx: int = 5
+var wy: int = 5
+var radar_count: int = 0
+var miss_count: int = 0
+var scythe: bool = false
 #               0  1  2  3  4   5   6   7   8   9  10  11  12  13  14  15  
 enum CELL_PAW {NA, U, D, L, R, UD, LR, UR, RD, DL, LU, NU, ND, NL, NR, A}
 
 func _ready() -> void:
 	SignalBus.l_click.connect(destroy)
 	SignalBus.r_click.connect(mark)
+	apply_upgrade()
 	seed(floor(Time.get_unix_time_from_system()))
 	for x in wx:
 		cats.append([])
@@ -27,8 +31,47 @@ func _ready() -> void:
 			paw[x].append(CELL_PAW.NA)
 			grass[x].append([true])
 
+func apply_upgrade() -> void:
+	## Field Size
+	if Shop.purchased_upgrades["F11"]:
+		wx = 11
+		wy = 11
+		Global.WORLD_SIZE_X = 11
+		Global.WORLD_SIZE_Y = 11
+		Global.rebuild()
+	elif Shop.purchased_upgrades["F9"]:
+		wx = 9
+		wy = 9
+		Global.WORLD_SIZE_X = 9
+		Global.WORLD_SIZE_Y = 9
+		Global.rebuild()
+	elif Shop.purchased_upgrades["F7"]:
+		wx = 7
+		wy = 7
+		Global.WORLD_SIZE_X = 7
+		Global.WORLD_SIZE_Y = 7
+		Global.rebuild()
+	else:
+		wx = 5
+		wy = 5
+		Global.WORLD_SIZE_X = 5
+		Global.WORLD_SIZE_Y = 5
+		Global.rebuild()
+	## Radar Count
+	if Shop.purchased_upgrades["R3"]:
+		radar_count = 3
+	elif Shop.purchased_upgrades["R2"]:
+		radar_count = 2
+	elif Shop.purchased_upgrades["R1"]:
+		radar_count = 1
+	else:
+		radar_count = 0
+	## Scythe
+	scythe = Shop.purchased_upgrades["S1"]
+	
 
 func generate_new() -> void:
+	miss_count = 0
 	cat_count = Global.get_cat_count()
 	for x in wx:
 		for y in wy:
@@ -151,10 +194,22 @@ func destroy(x: int, y: int) -> void:
 		return
 	if grass[x][y] && !flags[x][y]:
 		grass[x][y] = false
+		if paw[x][y] == CELL_PAW.NA and scythe:
+			scythe_run(x, y)
 		SignalBus.redraw_lvl.emit()
 		check_win()
 	if cats[x][y]:
-		SignalBus.lvl_lose.emit()
+		miss_count += 1
+		if miss_count > radar_count:
+			SignalBus.lvl_lose.emit()
+		else:
+			mark(x, y)
+
+func scythe_run(x: int, y: int) -> void:
+	for tmp_x in wx:
+		destroy(tmp_x, y)
+	for tmp_y in wy:
+		destroy(x, tmp_y)
 
 
 func mark(x: int, y: int) -> void:

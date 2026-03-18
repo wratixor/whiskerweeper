@@ -14,7 +14,7 @@ func _on_sfx_button_pressed() -> void:
 	SignalBus.regenerate_lvl.emit()
 	win_panel.visible = false
 	for child in finded_cat.get_children():
-		child.free()
+		child.queue_free()
 
 
 func generate(count: int) -> void:

@@ -4,6 +4,11 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8b5g"]
 bg_color = Color(0, 0.43529412, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.1254902, 0, 1)
 
 [resource]
 default_font = ExtResource("1_v8b5g")

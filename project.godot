@@ -30,6 +30,7 @@ SignalBus="*res://game/global/signal_bus.gd"
 SaveManager="*uid://n7sqadc5olvm"
 SoundBus="*uid://bhv1wugj5fbw6"
 CatCollection="*uid://bjrntijit8vbf"
+Shop="*uid://1faymc2wmjo2"
 
 [display]
 

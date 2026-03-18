@@ -53,7 +53,6 @@ text = "Cat collection"
 
 [node name="MetaSFXButton3" parent="CanvasLayer/Panel/VBoxContainer" unique_id=69483786 instance=ExtResource("3_0044d")]
 layout_mode = 2
-disabled = true
 text = "Shop"
 
 [node name="SettingSFXButton4" parent="CanvasLayer/Panel/VBoxContainer" unique_id=320869057 instance=ExtResource("3_0044d")]

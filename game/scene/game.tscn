@@ -26,7 +26,7 @@ limit_end = Vector2(100000000, 100000000)
 
 [node name="World" type="Node2D" parent="." unique_id=1915836971]
 unique_name_in_owner = true
-position = Vector2(-176, -176)
+position = Vector2(-64, -64)
 
 [node name="Back" type="TileMapLayer" parent="World" unique_id=1727471063]
 unique_name_in_owner = true

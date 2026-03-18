@@ -89,8 +89,8 @@ func get_cat_info(cat_id: String) -> Dictionary:
 		cat_dict["lvl"] = collected_cat[cat_id]["lvl"]
 		cat_dict["count"] = collected_cat[cat_id]["count"]
 		cat_dict["need_to_upgrade"] = (collected_cat[cat_id]["lvl"] + 1) * UPGRADE_MUL
-		cat_dict["meta_collected"] = META_DIVIDEND /\
-			(_cat_static_pool[cat_id]["weight"] * (collected_cat[cat_id]["lvl"]+ 1))
+		cat_dict["meta_collected"] = (META_DIVIDEND / _cat_static_pool[cat_id]["weight"])\
+									* (collected_cat[cat_id]["lvl"] + 1)
 	return cat_dict
 
 
@@ -128,7 +128,7 @@ func upgrade_cat(key: String) -> void:
 		var current_count: int = collected_cat[key]["count"]
 		var current_lvl: int = collected_cat[key]["lvl"]
 		var need_for_upgrade: int = (current_lvl + 1) * UPGRADE_MUL
-		if current_count <= need_for_upgrade:
+		if current_count >= need_for_upgrade:
 			current_count -= need_for_upgrade
 			current_lvl += 1
 		else:
@@ -143,13 +143,13 @@ func is_cat_upgradable(key: String):
 		var current_count: int = collected_cat[key]["count"]
 		var current_lvl: int = collected_cat[key]["lvl"]
 		var need_for_upgrade: int = (current_lvl + 1) * UPGRADE_MUL
-		return current_count <= need_for_upgrade
+		return current_count >= need_for_upgrade
 	else:
 		return false
 
 
 func save_collection() -> void:
-	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
 		file.store_var(collected_cat)
 	else:
@@ -157,8 +157,8 @@ func save_collection() -> void:
 
 
 func load_collection() -> void:
-	var load_dict = {}
-	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var load_dict: Dictionary = {}
+	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if file:
 		var data = file.get_var()
 		if typeof(data) == TYPE_DICTIONARY:

@@ -18,9 +18,12 @@ func _ready() -> void:
 	SignalBus.redraw_lvl.connect(redraw_all)
 	SignalBus.lvl_lose.connect(draw_cats)
 	SignalBus.lvl_win.connect(draw_cats)
+	redraw_all()
 
 
 func redraw_all() -> void:
+	wx = Global.WORLD_SIZE_X
+	wy = Global.WORLD_SIZE_Y
 	redraw_back()
 	redraw_grass()
 	redraw_flags()
